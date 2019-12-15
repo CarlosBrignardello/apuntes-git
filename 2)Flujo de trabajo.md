@@ -144,6 +144,13 @@ body{
 
 
 
+<<<<<<< HEAD
+=======
+**Resultado:**
+
+![](C:\Users\cbrigcode\Google Drive\Proyectos\Git & Github\img\git1.PNG)
+
+>>>>>>> 91a7376ccfc19ff81f8f4ed261d7f7028782c76d
 **Ahora añadimos los cambios al repositorio local:**
 
 * `git commit -am "Se envian las actualizaciones al sitio web"`
