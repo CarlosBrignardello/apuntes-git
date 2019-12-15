@@ -88,11 +88,7 @@ En caso de que sea necesario obtener el cambio de otro desarrollador que no pose
 
 Por defecto el repositorio posee una rama llamada MASTER donde son guardados los cambios de los archivos con `commit`, estos cambios son lineales.
 
-<<<<<<< HEAD
-Llegado cierto momento se puede determinar que deseamos realizar cambios experimentales o ramificaciones adicionales a la rama principal, para por ejemplo: separar el desarrollo de un proyecto en las tareas del equipo de desarrollo.
-=======
 Llegado cierto momento se puede determinar que se deseamos realizar cambios experimentales o ramificaciones adicionales a la rama principal, para por ejemplo: separar el desarrollo de un proyecto en las tareas del equipo de desarrollo.
->>>>>>> 91a7376ccfc19ff81f8f4ed261d7f7028782c76d
 
 Para ello desde un commit de la rama MASTER podemos comenzar a dividir el camino en dos simplemente añadiendo un nombre al commit.
 
