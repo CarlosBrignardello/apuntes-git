@@ -127,6 +127,16 @@ Dentro de Git procedemos a ingresar a nuestro repositorio local y revisamos nues
 
 
 
+**Agregar un origen remoto a nuestros archivos:**
+
+* `git remote add origin https://github.com/CarlosBrignardello/Apuntes-Git-GitHub.git`
+
+
+
+o
+
+
+
 **Cambiar dirección de conexión remota:** 
 
 * `git remote set-url origin git@github.com:CarlosBrignardello/Apuntes-Git-GitHub.git`
