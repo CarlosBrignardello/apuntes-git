@@ -1,66 +1,114 @@
-# TRABAJANDO CON ARCHIVOS REMOTOS
+# Flujo de trabajo
 
 
 
-### USAR GITHUB
+### Manejo de ramas
 
-Tras tener creada una cuenta creamos un repositorio, tras hacerlo obtendremos un URL
-
-* https://github.com/CarlosBrignardello/Apuntes-Git-GitHub
+Las ramas son útiles para segmentar el desarrollo en distintas etapas.
 
 
 
-Para ingresar los cambios realizados previamente a este repositorio utilizamos la opción "Clone or download" y obtenemos la URL destacada, en este caso:
+**Crear rama:**
 
-* https://github.com/CarlosBrignardello/Apuntes-Git-GitHub.git
+* `git branch *NOMBRE_RAMA*`
+
+**Moverse a una rama:**
+
+* `git checkout *NOMBRE_RAMA*`
+  Tras hacer esto, al revisar el estado veremos que esta nueva rama esta completamente actualizada.
+
+*Una vez en la rama podemos generar cambios y estos serán aplicados únicamente para la ramificación en la que nos encontramos. de tal modo que si guardamos los cambios realizados y volvemos a la rama MASTER, los archivos en nuestro directorio habrán cambiado y si ahora regresamos volverán a cambiar.*
 
 
+
+**UNIR RAMAS**
+
+Si son realizados cambios tanto en MASTER como en otra rama y se quiere que estas se unan se recurre al uso de un merge. Al hacer merge la rama adicional desaparece y se une a master.
+
+> **NOTA:** si en este momento hacemos un checkout podríamos perder los archivos y los cambios realizados. Por lo que debemos guardarlos o subirlos al repositorio local de inmediato.
+
+Para realizar un merge debemos estar en la rama master, en este caso vincularemos los cambios realizados en cabecera con lo cambios realizados en master. Si lo hacemos al revés convertiríamos la rama cabecera en la rama principal.
+
+En estos casos pueden existir conflictos si dos elementos iguales fueron modificados en ambas versiones y eso debe ser arreglado.
+
+**Realizar un merge:**
+
+* `git merge *NOMBRE_RAMA* `
+
+  Una vez hecho esto fusionamos ambas ramas y obtuvimos el contenido de ambas.
+
+
+
+**Hostear un sitio con GitHub Pages**
+
+1. Para hostear un sitio necesitamos generar una nueva rama denominada "gh-pages":
+   * `git branch gh-pages`
+2. Nos movemos a la rama generada:
+   * `git checkout gh-pages`
+3. realizamos una actualización al repositorio con la nueva rama:
+   * `git push origin gh-pages`
+4. Revisamos el sitio hosteado:
+   * NOMBRE_USUARIO.github.io/NOMBRE_REPOSITORIO
+
+
+
+### Conflictos
+
+Los conflictos son representados con la siguiente sintaxis:
+
+```bash
+<<<<<<<<<< HEAD
+...........
+===============
+...........
+>>>>>>>>>> *NOMBRE_RAMA*
+```
+
+Afortunadamente programas como Visual Studio Code detectan estos conflictos y permiten de forma rápida decidir con que versión trabajar finalmente.
+
+
+
+### Flujo remoto
+
+**Obtener datos de un repositorio remoto:**
+
+* `git clone *URL*`
+  Lo que sucede al obtener los datos es que se descarga la historia del repositorio remoto y se trae la ultima versión del master. 
 
 **Agregar un origen remoto a nuestros archivos:**
 
-* `git remote add origin https://github.com/CarlosBrignardello/Apuntes-Git-GitHub.git`
+* `git remote add origin *URL*`
 
-Tras hacer esto tendremos acceso a realizar fetch y push al repositorio remoto en cuestión.
+  El nombre "origin" es una convención para nombrar a los remotos de un repositorio. Tras hacer esto tendremos acceso a realizar fetch y push al repositorio remoto en cuestión.
 
+**Revisar conexiones remotas:**
 
+* `git remote -v`
 
-**Enviar nuestros archivos al repositorio remoto:**
+**Actualizar y fusionar versión local:**:
 
-* `git push origin master`
+* `git pull *NOMBRE_REMOTO* *RAMA*`
 
+**Subir datos a un repositorio remoto:**
 
+* `git push *NOMBRE_REMOTO* *RAMA*` 
 
-Se abrirá una ventana que solicitara nuestros datos, simplemente los ponemos. Lo más posible es que nos genere error pues vamos a subir archivos  al remoto sin tener los archivos remotos en primer lugar en local.
+  Permite subir la versión final de todos los cambios realizados en forma local.
 
+**Traer actualización del repositorio remoto:**
 
+* `git fetch`
+  Obtiene la versión más nueva del repositorio remoto sin traer los archivos.
 
-Para ello utilizamos un pull:
+**Caso especial: Obtener pull de un repositorio con archivos pre-existentes:**
 
-* `git pull origin master`
+* `git pull origin master --allow-unrelated-histories`
 
-Nuevamente nos dara error pues las historias no coinciden, para solucionarlo lo hacemos de la siguiente forma:
+**Ver que usuario genero un cambio:**
 
-* **git pull origin master --allow-unrelated-histories**
+* `git blame *LÍNEA_CODIGO*` 
 
-
-
-y ahora si podemos enviar nuestros archivos al repositorio remoto.
-
-
-
-**RESUMEN:**
-
-1. **Rastreamos los archivos:**
-
-* `git add .`
-
-2. **Guardamos los cambios en local:**
-
-* `git commit -am "*MENSAJE*"`
-
-3. **Subimos los cambios al repositorio:**
-
-* `git push origin master`
+  Muestra quién escribió que línea de código en otras palabras quien es culpable de una línea de código en particular.
 
 
 
@@ -115,25 +163,7 @@ Nos dirigimos a las configuraciones de la cuenta y a la opción **SSH key and GP
 
 Una vez hecho esto nos dirigimos al repositorio y en la opción **Clone or Download** tendremos acceso a la opción **use SSH** lo que nos otorgara una llave publica de GitHub.
 
-
-
 Dentro de Git procedemos a ingresar a nuestro repositorio local y revisamos nuestras conexiones remotas.
-
-
-
-**Revisar conexiones remotas:**
-
-* `git remote -v`
-
-
-
-**Agregar un origen remoto a nuestros archivos:**
-
-* `git remote add origin https://github.com/CarlosBrignardello/Apuntes-Git-GitHub.git`
-
-
-
-o
 
 
 
@@ -144,25 +174,7 @@ o
 
 
 
-**Obtenemos la ultima versión del servidor:**
-
-* `git pull origin master`
-
-
-
-**Actualizamos el repositorio local:**
-
-* `git commit -am "MENSAJE"`
-
-
-
-**Enviamos el cambio:** 
-
-* `git push origin master`
-
-
-
-### TAGS Y VERSIONES
+### Tags y versiones
 
 Los tags permiten destacar un cambio y asignarle un nombre mediante un sistema de tags que posteriormente pueden ser vistos de forma ordenada desde GitHub.
 
@@ -190,7 +202,7 @@ Los tags permiten destacar un cambio y asignarle un nombre mediante un sistema d
 
 
 
-### GRAFICAR COMMITS
+### Graficar Commits
 
 Es posible mostrar una especie de grafico de la historia del repositorio, es posible hacerlo con dos comandos:
 
@@ -199,14 +211,14 @@ Es posible mostrar una especie de grafico de la historia del repositorio, es pos
 
 
 
-#### Crear Alias
+**Crear Alias**
 
 * `alias three="git log --all --graph --decorate --oneline"`
 * `alias three-full="git log --all --graph"`
 
 
 
-### MANEJO DE RAMAS
+### Manejo de ramas
 
 
 
@@ -221,47 +233,3 @@ Es posible mostrar una especie de grafico de la historia del repositorio, es pos
 **Ver commits en forma visual:**
 
 * `gitk`
-
-
-
-A partir de ahora crearemos dos ramas adicionales y las enviamos al repositorio remoto:
-
-```bash
-git branch header
-git branch footer
-
-git pull origin master
-
-git push origin header
-git push origin footer
-```
-
-
-
-### CONFIGURAR MULTIPLES COLABORADORES
-
-
-
-#### Nuevo colaborador
-
-0. Previamente es añadido al repositorio al colaborador mediante su correo o su nombre de usuario de GitHub. 
-
-1. Genera una ruta de archivos ordenada en la que guardar el repositorio remoto.
-
-2. Desde el terminal descargamos el repositorio:
-
-* `git clone *DIR_HTTPS*`
-
-3. Realizar cambios
-4. Actualizar cambios locales:
-
-* `git commit  -am "MENSAJE"`
-
-5. Actualizamos el contenido remoto al contenido local:
-
-* `git pull origin master`
-
-6. Subimos los cambios al repositorio remoto:
-
-* `git push origin master`
-
